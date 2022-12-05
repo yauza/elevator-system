@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "elevator-system"
+  "cli": {
+    "analytics": false
+  }
 }
