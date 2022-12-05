@@ -1,0 +1,9 @@
+<div fxLayout="row" fxLayoutAlign="start center" style="padding-left: 1vw">
+  <app-elevator *ngFor="let elevator of elevators; let i = index"
+  [id]="i">
+  </app-elevator>
+</div>
+
+<button (click)="addElevator()">
+  Dodaj winde
+</button>
