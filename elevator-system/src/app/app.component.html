@@ -1,9 +1,28 @@
-<div fxLayout="row" fxLayoutAlign="start center" style="padding-left: 1vw">
-  <app-elevator *ngFor="let elevator of elevators; let i = index"
-  [id]="i">
+<div fxLayoutAlign="center">
+  <h1>Elevator System</h1>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center">
+  <app-elevator fxFlex *ngFor="let elevator of elevatorScheduler.getElevators(); let i = index"
+  [elevator]="elevator">
   </app-elevator>
 </div>
 
-<button (click)="addElevator()">
-  Dodaj winde
-</button>
+
+<div fxLayout="row wrap" fxLayoutAlign="center" class="button-container">
+  <button mat-raised-button class="button" [color]="startStopButton? 'accent' : 'primary'" (click)="startStopButton? stopSimulation() : startSimulation()">
+    {{getButtonTitle()}}
+  </button>
+
+  <button mat-raised-button class="button" (click)="elevatorScheduler.addElevator()">
+    Add elevator
+  </button>
+
+  <button mat-raised-button class="button" (click)="elevatorScheduler.removeElevator()">
+    Remove elevator
+  </button>
+</div>
+
+<div>
+  <app-control-panel></app-control-panel>
+</div>

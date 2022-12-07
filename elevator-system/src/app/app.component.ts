@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import {EventEmitter } from '@angular/core';
 import { ElevatorComponent } from './elevator/elevator.component';
-
-
-
-interface Elevator {
-  id: number;
-  value: string;
-}
+import { Elevator } from './models/elevator';
+import { ElevatorScheduler } from './models/elevator-scheduler';
+import { Direction, ElevatorCall } from './utils/types';
 
 
 @Component({
@@ -18,14 +14,22 @@ interface Elevator {
 export class AppComponent {
   title = 'elevator-system';
 
-  idCounter = 0;
+  public startStopButton: boolean = false;
+  public elevatorScheduler: ElevatorScheduler = new ElevatorScheduler();
+  
 
-  elevators: ElevatorComponent[] = [];
-  elevatorIds: number[] = [];
+  public async startSimulation() {
+    this.startStopButton = true;
+    this.elevatorScheduler.startSimulation();
+  }
 
-  public addElevator() {
-    this.elevators.push(new ElevatorComponent());
-    this.idCounter += 1;
+  public stopSimulation() {
+    this.startStopButton = false;
+    this.elevatorScheduler.stopSimulation();
+  }
+
+  public getButtonTitle() {
+    return this.startStopButton? 'Stop' : 'Start';
   }
 
 }
