@@ -1,7 +1,7 @@
 # Elevator System
 
 ## How to use
-Open this <a href="https://yauza.github.io/elevator-system">link</a> and add as many elevators as you want using the `Add elevator` button. In the `Control Panel`, you can create elevator requests by choosing the `Start Floor` and `Destination Floor` and clicking `Call elevator`. To start (or stop) the simulation, click on the `Start` button.
+Open this <a href="https://elevator-system-80e82.firebaseapp.com/">link</a> and add as many elevators as you want using the `Add elevator` button. In the `Control Panel`, you can create elevator requests by choosing the `Start Floor` and `Destination Floor` and clicking `Call elevator`. To start (or stop) the simulation, click on the `Start` button.
 
 ## How it works
 Algorithm focuses on the direction in which elevator is going. Thus, there are 3 ways the elevator can recieve a call (in order):
