@@ -18,7 +18,7 @@ export class Elevator {
 
   constructor(id: number) { this.id = id; }
 
-  public update() {
+  public update(): void {
 
     if (this.currentFloor == this.nextFloor) {
       let nextStop = null;

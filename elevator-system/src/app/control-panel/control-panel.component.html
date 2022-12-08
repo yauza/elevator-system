@@ -1,1 +1,28 @@
-<p>control-panel works!</p>
+<div fxLayoutAlign="center" class="header">
+    <h2>Control Panel</h2>
+</div>
+
+
+<div fxLayout="row wrap" fxLayoutAlign="center" class="panel">
+    <mat-form-field appearance="fill" class="panel-element">
+        <mat-label>Start Floor</mat-label>
+        <mat-select [formControl]="startFloor">
+            <mat-option *ngFor="let floor of floors" [value]="floor">
+                {{floor}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="panel-element">
+        <mat-label>Destination Floor</mat-label>
+        <mat-select [formControl]="destinationFloor">
+            <mat-option *ngFor="let floor of floors" [value]="floor">
+                {{floor}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button class="button-panel-element" (click)="callElevator()">
+        Call elevator
+    </button>
+</div>

@@ -1,28 +1,28 @@
-<div fxLayoutAlign="center">
+<div fxLayoutAlign="center" class="header">
   <h1>Elevator System</h1>
 </div>
 
 <div fxLayout="row wrap" fxLayoutAlign="center">
-  <app-elevator fxFlex *ngFor="let elevator of elevatorScheduler.getElevators(); let i = index"
+  <app-elevator fxFlex *ngFor="let elevator of elevatorService.getElevators(); let i = index"
   [elevator]="elevator">
   </app-elevator>
 </div>
 
 
-<div fxLayout="row wrap" fxLayoutAlign="center" class="button-container">
+<div fxLayout="row wrap" fxLayoutAlign="center" class="container">
   <button mat-raised-button class="button" [color]="startStopButton? 'accent' : 'primary'" (click)="startStopButton? stopSimulation() : startSimulation()">
     {{getButtonTitle()}}
   </button>
 
-  <button mat-raised-button class="button" (click)="elevatorScheduler.addElevator()">
+  <button mat-raised-button class="button" (click)="elevatorService.addElevator()">
     Add elevator
   </button>
 
-  <button mat-raised-button class="button" (click)="elevatorScheduler.removeElevator()">
+  <button mat-raised-button class="button" (click)="elevatorService.removeElevator()">
     Remove elevator
   </button>
 </div>
 
-<div>
+<div fxLayout="row wrap" fxLayoutAlign="center" class="container">
   <app-control-panel></app-control-panel>
 </div>

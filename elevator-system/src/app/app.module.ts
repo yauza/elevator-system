@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -8,6 +9,9 @@ import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ElevatorService } from './services/elevator.service';
 
 @NgModule({
   declarations: [
@@ -20,9 +24,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ElevatorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

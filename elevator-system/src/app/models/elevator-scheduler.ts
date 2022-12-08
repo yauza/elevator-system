@@ -21,7 +21,7 @@ export class ElevatorScheduler {
     }
   }
 
-  public handleElevatorCalls() {
+  private handleElevatorCalls(): void {
     if (this.calls.length > 0) {
       let lastCall = this.calls.shift();
       console.log(lastCall)
@@ -29,7 +29,7 @@ export class ElevatorScheduler {
     }
   }
 
-  public updateElevators() {
+  private updateElevators(): void {
     for (let elevator of this.elevators) {
       elevator.update();
     }
@@ -81,6 +81,10 @@ export class ElevatorScheduler {
     console.log("test")
     return;
   }
+
+  public callElevator(call: ElevatorCall): void {
+    this.calls.push(call);
+  } 
   
   public addElevator(): void {
     let a = new Elevator(this.idCounter);

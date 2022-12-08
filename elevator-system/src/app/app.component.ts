@@ -3,6 +3,7 @@ import {EventEmitter } from '@angular/core';
 import { ElevatorComponent } from './elevator/elevator.component';
 import { Elevator } from './models/elevator';
 import { ElevatorScheduler } from './models/elevator-scheduler';
+import { ElevatorService } from './services/elevator.service';
 import { Direction, ElevatorCall } from './utils/types';
 
 
@@ -14,18 +15,24 @@ import { Direction, ElevatorCall } from './utils/types';
 export class AppComponent {
   title = 'elevator-system';
 
+  constructor(public elevatorService: ElevatorService) {
+
+  }
+
   public startStopButton: boolean = false;
-  public elevatorScheduler: ElevatorScheduler = new ElevatorScheduler();
+  // public elevatorScheduler: ElevatorScheduler = new ElevatorScheduler();
   
 
   public async startSimulation() {
     this.startStopButton = true;
-    this.elevatorScheduler.startSimulation();
+    // this.elevatorScheduler.startSimulation();
+    this.elevatorService.startSimulation();
   }
 
   public stopSimulation() {
     this.startStopButton = false;
-    this.elevatorScheduler.stopSimulation();
+    // this.elevatorScheduler.stopSimulation();
+    this.elevatorService.stopSimulation();
   }
 
   public getButtonTitle() {
