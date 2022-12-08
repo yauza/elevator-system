@@ -21,12 +21,12 @@ export class ControlPanelComponent implements OnInit {
   }
 
   public callElevator() {
-    console.log(this.startFloor.value);
-    console.log(this.destinationFloor.value);
+    let sf = this.startFloor.value || 0;
+    let df = this.destinationFloor.value || 0;
     let newCall: ElevatorCall = {
-      startFloor: this.startFloor.value || 0, 
-      destinationFloor: this.destinationFloor.value || 0, 
-      direction: this.startFloor > this.destinationFloor ? Direction.DOWN : Direction.UP
+      startFloor: sf, 
+      destinationFloor: df, 
+      direction: sf > df ? Direction.DOWN : Direction.UP
     };
     this.elevatorService.callElevator(newCall);
   }

@@ -15,23 +15,17 @@ import { Direction, ElevatorCall } from './utils/types';
 export class AppComponent {
   title = 'elevator-system';
 
-  constructor(public elevatorService: ElevatorService) {
-
-  }
+  constructor(public elevatorService: ElevatorService) { }
 
   public startStopButton: boolean = false;
-  // public elevatorScheduler: ElevatorScheduler = new ElevatorScheduler();
-  
 
   public async startSimulation() {
     this.startStopButton = true;
-    // this.elevatorScheduler.startSimulation();
     this.elevatorService.startSimulation();
   }
 
   public stopSimulation() {
     this.startStopButton = false;
-    // this.elevatorScheduler.stopSimulation();
     this.elevatorService.stopSimulation();
   }
 

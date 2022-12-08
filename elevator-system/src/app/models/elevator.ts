@@ -1,5 +1,7 @@
 import { Direction, ElevatorCall, Status } from "../utils/types";
 
+var SortedArraySet = require("collections/sorted-array-set")
+
 export class Elevator {
 
   id: number = 0;
@@ -12,9 +14,10 @@ export class Elevator {
   public currentFloor: number = 0;
   public nextFloor: number = 0;
 
-  calls: ElevatorCall[] = [];
-  upStops: number[] = [];
-  downStops: number[] = [];
+  private calls: ElevatorCall[] = [];
+  private upStops = new SortedArraySet();
+  private downStops = new SortedArraySet();
+  private destinationFloors: Map<number, number[]> = new Map();
 
   constructor(id: number) { this.id = id; }
 
@@ -23,13 +26,19 @@ export class Elevator {
     if (this.currentFloor == this.nextFloor) {
       let nextStop = null;
 
+      this.destinationFloors.get(this.currentFloor)?.forEach(df => {
+        if (df > this.currentFloor) this.upStops.push(df);
+        else this.downStops.push(df);
+      });
+      this.destinationFloors.delete(this.currentFloor);
+
       if (this.goingUp()) {
         nextStop = this.upStops.shift();
       } else if (this.goingDown()) {
-        nextStop = this.downStops.shift();
+        nextStop = this.downStops.pop();
       } else {
         if (this.upStops.length > 0) nextStop = this.upStops.shift();
-        else nextStop = this.downStops.shift();
+        else nextStop = this.downStops.pop();
       }
 
       if (!nextStop) {
@@ -40,11 +49,32 @@ export class Elevator {
       this.nextFloor = nextStop;
 
     } else {
+      
+
       if (this.currentFloor < this.nextFloor) {
         this.direction = Direction.UP;
+        let potentialStop = this.upStops.shift();
+        if (potentialStop != undefined) {
+          if (potentialStop < this.nextFloor) {
+            this.upStops.push(this.nextFloor)
+            this.nextFloor = potentialStop;
+          } else {
+            this.upStops.push(potentialStop);
+          }
+        }
         this.currentFloor += 1;
       } else if (this.currentFloor > this.nextFloor) {
         this.direction = Direction.DOWN;
+        let potentialStop = this.downStops.pop();
+
+        if (potentialStop != undefined) {
+          if (potentialStop > this.nextFloor) {
+            this.downStops.push(this.nextFloor)
+            this.nextFloor = potentialStop;
+          } else {
+            this.downStops.push(potentialStop);
+          }
+        }
         this.currentFloor -= 1;
       } else {
         this.direction = Direction.STOP;
@@ -60,8 +90,9 @@ export class Elevator {
       this.downStops.push(elevatorCall.startFloor);
     }
 
-    if (elevatorCall.direction == Direction.UP) this.upStops.push(elevatorCall.destinationFloor);
-    else this.downStops.push(elevatorCall.destinationFloor);
+    if (this.destinationFloors.has(elevatorCall.startFloor)) {
+      this.destinationFloors.get(elevatorCall.startFloor)?.push(elevatorCall.destinationFloor);
+    } else this.destinationFloors.set(elevatorCall.startFloor, [elevatorCall.destinationFloor]);
 
     this.calls.push(elevatorCall);
     this.free = false;
@@ -85,6 +116,10 @@ export class Elevator {
 
   public goingDown(): boolean {
     return this.direction == Direction.DOWN;
+  }
+
+  public getStopsNumber(): number {
+    return this.upStops.length + this.downStops.length;
   }
 
 }
